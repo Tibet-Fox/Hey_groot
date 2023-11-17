@@ -1,142 +1,209 @@
-//
-//  HomeViewController.swift
-//  Hey_Groot
-//
-//  Created by 김경민 on 2023/09/03.
-//
-
 import Foundation
 import UIKit
 import SnapKit
 import RxSwift
 import Alamofire
 
-class MyPageViewController: UIViewController{
+extension UIImage {
+    func resized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+}
+
+class MyPageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    // 섹션과 각 섹션의 행 수를 정의합니다.
+    let sections = ["", "", ""]
+    let section1Data = ["스킨"]
+    let section2Data = ["알림", "북마크 리스트", "등록한 내식물", "앱 버전"]
+    let section3Data = ["로그아웃", "탈퇴하기"]
+    
+    var tableView: UITableView!
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
-        self.title = "마이페이지"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]  // Set title color
         
         
-        let buttonTitles1 = ["회원정보 수정", "알림", "북마크리스트", "등록한 내 식물", "앱버전","로그아웃","탈퇴하기"]
+        // 테이블 뷰 초기화 및 설정
+        tableView = UITableView(frame: view.bounds, style: .insetGrouped)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        view.addSubview(tableView)
         
-        // 버튼을 생성하고 설정
-        for i in 0..<7 {
-            let button = UIButton(type: .system)
-            button.setTitle(buttonTitles1[i], for: .normal)
-            button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-            button.tag = i //버튼에 태그를 부여하여 어떤 버튼이 클릭되었는지 확인
-            button.frame = CGRect(x: 15, y: 250 + i * 60, width: 358, height: 50)
-            
-            //스위치 버튼 생성
-            let notificationSwitch = UISwitch()
-            notificationSwitch.addTarget(self, action: #selector(notificationSwitchValueChanged(_:)), for: .valueChanged)
-            notificationSwitch.frame = CGRect(x: 280, y: 250 + 1.15 * 60 , width: 50, height: 30) // 필요에 따라 프레임 조정
+        //        // 네비게이션 컨트롤러를 루트 뷰 컨트롤러로 설정합니다.
+        // self.view = navigationController.view
+        // addChild(navigationController)
+        
+        // 배경색 변경
+        view.backgroundColor = UIColor(red: 0.467, green: 0.420, blue: 0.365, alpha: 1.0) // RGB 값으로 배경색 설정
+    }
+    
+    // MARK: - UITableViewDataSource Methods
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return section1Data.count
+        } else if section == 1 {
+            return section2Data.count
+        } else {
+            return section3Data.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            // "이미지와 레이블" 셀의 높이를 설정
+            return 80.0 // 원하는 높이로 설정
+        } else {
+            // 다른 섹션 및 셀의 경우 기본 높이 반환
+            return UITableView.automaticDimension
+        }
+    }
 
-            self.view.addSubview(notificationSwitch)
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+           let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
+           if indexPath.section == 0 {
+               // 섹션 1
+               if let text = section1Data.first {
+                    let attributedString = NSMutableAttributedString(string: text)
+                           attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 16), range: NSRange(location: 0, length: text.count))
+                           cell.textLabel?.attributedText = attributedString
+                       }
+
+                       cell.accessoryType = .disclosureIndicator // 오른쪽에 화살표 아이콘 삽입
+
+               if indexPath.row == 0 {
+                   // "이미지와 레이블" 셀의 이미지 설정
+                   if let image = UIImage(named: "Character1") {
+                       let imageSize = CGSize(width: 60, height: 60) // 이미지 크기 조정
+                       let scaledImage = image.resized(to: imageSize)
+                       let imageView = UIImageView(image: scaledImage)
+                       cell.imageView?.image = imageView.image
+                   }
+               }
             
             
-            
-            //버튼 공통설정
-            //버튼 테두리, 폰트 설정
-            button.layer.cornerRadius = 12
-            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-            // 버튼의 배경색 설정
-            button.layer.backgroundColor = UIColor(red: 0.6, green: 0.808, blue: 0.506, alpha: 1).cgColor
-          
-            
-            // 버튼의 텍스트 색상 설정
-            button.setTitleColor(UIColor.white, for: .normal)
-            
-            
-            switch i {
+        } else if indexPath.section == 1 {
+            cell.textLabel?.text = section2Data[indexPath.row]
+
+            switch indexPath.row {
+            case 0:
+                // 스위치 셀을 생성하고 설정
+                let switchView = UISwitch()
+                switchView.addTarget(self, action: #selector(switchChanged(_:)), for: .valueChanged)
+                cell.accessoryView = switchView
+                
                 
             case 1:
-                let notificationButton = UIButton(type: .system)
-                notificationButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-                notificationButton.frame = CGRect(x: 15 + 50 + 10, y: 250 + 1 * 60, width: 358 - 50 - 10, height: 50) // Adjust frame as needed
-           
-            case 5:
-                //로그아웃 버튼
-                button.backgroundColor = UIColor.white
-                button.setTitleColor(UIColor(red: 0.6, green: 0.808, blue: 0.506, alpha: 1), for: .normal)
-                //버튼 테두리 굵기와 색상 설정
-                button.layer.borderWidth = 2.0
-                button.layer.borderColor = UIColor(red: 0.6, green: 0.808, blue: 0.506, alpha: 1).cgColor
-                button.frame = CGRect(x: 15, y: 620, width: 358, height: 50)
-                
-                
-            case 6:
-                //탈퇴하기 버튼
-                button.backgroundColor = UIColor.white
-                button.setTitleColor(UIColor(red: 0.6, green: 0.808, blue: 0.506, alpha: 1), for: .normal)
-                //버튼 테두리 굵기와 색상 설정
-                button.layer.borderWidth = 2.0
-                button.layer.borderColor = UIColor(red: 0.6, green: 0.808, blue: 0.506, alpha: 1).cgColor
-                button.frame = CGRect(x: 15, y: 680, width: 358, height: 50)
-                default:
-                   break
-            }
-         
-            
-            // 버튼에 이미지 설정 (옵셔널)
-            // button.setImage(UIImage(named: "buttonImage"), for: .normal)
-            
-            self.view.addSubview(button)
-        }
-            }
-    
-    
-    @objc func buttonTapped(_ sender: UIButton) {
-        // 버튼이 탭되었을 때 수행할 동작을 여기에 추가
-        
-        if let title = sender.title(for: .normal) {
-            print("\(title) 버튼이 탭되었습니다.")
-            
-            // 버튼 태그를 기반으로 화면 전환 처리
-            switch sender.tag {
-            case 0:
-                navigateToSetInfoViewController()
-                //"회원정보 수정" 버튼을 눌렀을 때 전환
-            
+                // "북마크 리스트"가 선택되었을 때 BookmarkListViewController로 이동
+                cell.accessoryType = .disclosureIndicator // 오른쪽에 화살표 아이콘 삽입
             case 2:
-                navigateToBookmarkListViewController() // "북마크 리스트" 버튼을 눌렀을 때 전환
+                // "등록한 내식물"이 선택되었을 때 MyPlantViewController로 이동
+                cell.accessoryType = .disclosureIndicator // 오른쪽에 화살표 아이콘 삽입
             case 3:
-                navigateToSetCharacterViewController()
-                //"캐릭터 수정하기" 버튼 눌렀을 때 전환
-                
-            case 4:
-                navigateToAppVersionViewController() //"앱버전" 버튼 눌렀을 때 전환
-                
-//            case 5:
-//                presentLoginViewController() //"로그아웃" 버튼 눌렀을 때 전환
+                // "앱 버전"이 선택되었을 때 AppVersionViewController로 이동
+                cell.accessoryType = .disclosureIndicator // 오른쪽에 화살표 아이콘 삽입
             default:
                 break
-                
-                
             }
-            
-            
-            
-        }
-        
-    }
-    
-   
-    
-    @objc private func notificationSwitchValueChanged(_ sender: UISwitch) {
-        if sender.isOn {
-            print("알림 스위치가 켜졌습니다.")
-            // Handle switch being turned on
         } else {
-            print("알림 스위치가 꺼졌습니다.")
-            // Handle switch being turned off
+            cell.textLabel?.text = section3Data[indexPath.row]
+            cell.accessoryType = .disclosureIndicator // 오른쪽에 화살표 아이콘 삽입
         }
-        
+
+        // 셀의 배경색을 지정
+        cell.backgroundColor = UIColor.white
+        // 셀의 contentView의 테두리를 둥글게 만듭니다.
+        cell.contentView.layer.cornerRadius = 30
+        cell.contentView.layer.masksToBounds = true
+        return cell
     }
+
+    
+    // MARK: - UITableViewDelegate Methods
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section]
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            // 섹션 0에 레이블을 추가하여 "마이페이지" 표시
+            let label = UILabel()
+            label.text = "마이페이지"
+            label.textColor = UIColor.black
+            // label.backgroundColor = UIColor.lightGray
+            label.font = UIFont.boldSystemFont(ofSize: 20) // 굵기와 크기 설정
+            label.textAlignment = .center // 가운데 정렬
+            label.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 40) // 위치와 높이 설정
+            return label
+        }
+        return nil // 다른 섹션에는 헤더 뷰를 추가하지 않음
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            // 섹션 0의 헤더 높이를 설정하여 섹션 0과 섹션 1 사이의 여백을 추가
+            return 60 // 원하는 여백 크기로 설정
+        } else if section == 1 {
+            // 섹션 1의 헤더 높이를 설정하여 섹션 1과 섹션 2 사이의 여백을 추가
+            return 60 // 원하는 여백 크기로 설정
+        } else if section == 2 {
+            // 섹션 2의 헤더 높이를 설정하여 섹션 2와 섹션 3 사이의 여백을 추가
+            return 60 // 원하는 여백 크기로 설정
+        }
+        return 0.001 // 다른 섹션의 헤더 높이를 0으로 설정하여 숨김
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            if indexPath.row == 0 {
+                // "이미지와 레이블"이 선택되었을 때 SetInfoViewController로 전환
+                navigateToSetInfoViewController()
+            }
+        case 1:
+            switch indexPath.row {
+//            case 0:
+                
+            case 1:
+                // "북마크 리스트"가 선택되었을 때 BookmarkListViewController로 이동
+                navigateToBookmarkListViewController()
+            case 2:
+                // "등록한 내식물"이 선택되었을 때 MyPlantViewController로 이동
+                navigateToMyPlantViewController()
+            case 3:
+                // "앱 버전"이 선택되었을 때 AppVersionViewController로 이동
+                navigateToAppVersionViewController()
+            default:
+                break
+            }
+//        case 2:
+//            switch indexPath.row {
+//            case 0:
+//                // "로그아웃"이 선택되었을 때 처리
+//                // Add code to handle the selection (if needed)
+//            case 1:
+//                // "탈퇴하기"가 선택되었을 때 처리
+//                // Add code to handle the selection (if needed)
+//            default:
+//                break
+//            }
+        default:
+            break
+        }
+    }
+
+    
     
     private func navigateToSetInfoViewController() {
         let setInfoVC = SetInfoViewController() // SetInfoViewController의 인스턴스 생성
@@ -144,15 +211,16 @@ class MyPageViewController: UIViewController{
         self.present(navController, animated: true, completion: nil) // 화면 전환
     }
     
+    
     private func navigateToBookmarkListViewController() {
         let bookmarkListVC = BookmarkListViewController() // BookmarkListViewController의 인스턴스 생성
         let navController = UINavigationController(rootViewController: bookmarkListVC) // 내비게이션 컨트롤러 생성
         self.present(navController, animated: true, completion: nil) // 화면 전환
     }
     
-    private func navigateToSetCharacterViewController() {
-        let setCharacterVC = SetCharacterController() //
-        let navController = UINavigationController(rootViewController: setCharacterVC) // 내비게이션 컨트롤러 생성
+    private func navigateToMyPlantViewController() {
+        let myPlantVC = SetCharacterController() //
+        let navController = UINavigationController(rootViewController: myPlantVC) // 내비게이션 컨트롤러 생성
         self.present(navController, animated: true, completion: nil) // 화면 전환
     }
     
@@ -161,15 +229,14 @@ class MyPageViewController: UIViewController{
         let navController = UINavigationController(rootViewController: appVersionVC) // 내비게이션 컨트롤러 생성
         self.present(navController, animated: true, completion: nil) // 화면 전환
     }
-    
-    //로그아웃 버튼을 클릭했을 때 loginViewController로 이동시키려고 생성.
-//    private func presentLoginViewController() {
-//        let loginViewController = LoginViewController() // Instantiate your LoginViewController
-//        loginViewController.modalPresentationStyle = .fullScreen // Set the presentation style
-//
-//        // Present the LoginViewController
-//        present(loginViewController, animated: true, completion: nil)
-//
-//    }
+    @objc func switchChanged(_ sender: UISwitch) {
+        // Handle the switch state change here
+        if sender.isOn {
+            print("Switch is ON")
+        } else {
+            print("Switch is OFF")
+        }
+    }
+
     
 }

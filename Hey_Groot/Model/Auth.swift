@@ -12,4 +12,5 @@ class Auth {
     static let token = Auth()
     var accessToken : String = "access"
     var refreshToken : String = "refresh"
+    var user:User?
 }

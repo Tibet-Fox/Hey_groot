@@ -15,8 +15,8 @@ class MyPageViewModel{
     let titleitems:Signal<[String]>
     let titlegetItems = BehaviorRelay<[String]>(value: [])
 
-    let bookMarkItems:Signal<[Plant_info]>
-    let bookMarkGetItems = BehaviorRelay<[Plant_info]>(value: [])
+    let bookMarkItems:Signal<[BookMarkPlant_Info]>
+    let bookMarkGetItems = BehaviorRelay<[BookMarkPlant_Info]>(value: [])
 
     init(){
         items = getItems

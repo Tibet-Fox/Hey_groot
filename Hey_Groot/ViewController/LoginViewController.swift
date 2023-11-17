@@ -107,7 +107,7 @@ class LoginViewController: UIViewController {
         }
         
        login(email: email, password: password)
-        self.gotoMainView()
+        //self.gotoMainView()
         
     }
     
@@ -142,13 +142,21 @@ class LoginViewController: UIViewController {
             switch result {
             case .success(let response):
                 do {
+                   
+                    print( (try response.mapJSON()) as? [String:Any] ?? [String:Any]())
                     let refreshToken = try response.map(PostLogin.self).refresh_token
                     let accessToken = try response.map(PostLogin.self).access_token
+                    let user =  try response.map(PostLogin.self).user
+                    Auth.token.user = user
                     Auth.token.accessToken = accessToken
                     Auth.token.refreshToken = refreshToken
                     self?.gotoMainView()
                 } catch (let err) {
                     print(err)
+                    let alert = UIAlertController(title: "Error", message: "아이디 비밀번호를 확인해주세요.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(action)
+                    self?.present(alert,animated: true)
                 }
             case .failure(let error):
                 print("Error: \(error)")

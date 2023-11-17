@@ -7,10 +7,11 @@
 
 import Foundation
 import UIKit
-
-
+import RxSwift
+import Alamofire
 class AddPlantViewController: UIViewController {
-    
+
+    let disposeBag = DisposeBag()
    // private let provider = MoyaProvider<Types>()
     
     @IBOutlet weak var plantLabel1: UILabel!
@@ -29,9 +30,14 @@ class AddPlantViewController: UIViewController {
     
     let birthdatePicker = UIDatePicker()
     let waterdatePicker = UIDatePicker()
+    var plantName: String?
+
+    var plant_Item:[String]?
+    var characterInfo:CharacterInfo?
+    
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+            super.viewDidLoad()
         
         let addPlantParent = self.view!
        // addPlantParent.addSubview(addPlantLabel)
@@ -84,7 +90,7 @@ class AddPlantViewController: UIViewController {
         plantTextField1.heightAnchor.constraint(equalToConstant: 54).isActive = true
         plantTextField1.leadingAnchor.constraint(equalTo: addPlantParent.leadingAnchor, constant: 16).isActive = true
         plantTextField1.topAnchor.constraint(equalTo: addPlantParent.topAnchor, constant: 200).isActive = true
-
+    
         
 
         plantLabel2.frame = CGRect(x: 0, y: 0, width: 59, height: 26)
@@ -172,10 +178,16 @@ class AddPlantViewController: UIViewController {
         
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+            self.view.endEditing(true)
+      }
+    
     
     @IBAction func pressCharacterBtn(_ sender: UIButton) {
-        let gotoCharacterVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: AddCharacterViewController.self)) as! AddCharacterViewController
-         presentPanModal(gotoCharacterVC)
+       let controller = AddCharacterViewController()
+        controller.viewController = self
+        
+        self.present(controller,animated: true)
     }
     
     
@@ -189,7 +201,62 @@ class AddPlantViewController: UIViewController {
     
     
     func gotoMainView() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if plant_Item?.count == 0 || plantTextField2.text == "" || characterInfo == nil{
+            let alert = UIAlertController(title: "Error", message: "입력을 하지않은 공간이 있습니다.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "확인", style: .default)
+            alert.addAction(action)
+            self.present(alert,animated: true)
+          
+        }else{
+            Observable.just("http://3.20.48.164:8000/plant/partner/")
+                .map { url -> ApiRequest in
+                    var params = [String:Any]()
+                    params["character_id"] = String( self.characterInfo?.id ?? 0) 
+                    params["name"] = self.plantTextField1.text
+                    params["plant_id"] = self.plant_Item?[0] ?? ""
+                    let header = HTTPHeader(name: "Authorization", value: "Bearer \(Auth.token.accessToken)")
+                    return ApiRequest(params: params, url: url, header: header)
+                }.flatMap { api -> Observable<ResponseMessage> in
+                    return getRequest(api,.post)
+                }.bind { data in
+                    let alert = UIAlertController(title: "Info", message: "등록완료 했습니다.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "확인", style: .default){ _ in
+                        self.dismiss(animated: true)
+                    }
+                    alert.addAction(action)
+                    self.present(alert,animated: true)
+                    
+                }
+                .disposed(by: disposeBag)
+        }
+        
+        func gotoMainmainView() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+            // 홈 뷰 컨트롤러 생성
+            let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+            
+            // HomeViewController의 뷰를 로드합니다.
+            homeViewController.loadViewIfNeeded()
+            
+            // 탭 바 뷰 컨트롤러 생성
+            let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! UITabBarController
+            
+            // 네비게이션 컨트롤러 생성
+            let navigationController = UINavigationController(rootViewController: homeViewController)
+            
+            // 탭 바 뷰 컨트롤러에 네비게이션 컨트롤러 설정
+            tabBarController.viewControllers = [navigationController]
+            
+            // 모달로 화면 표시
+            tabBarController.modalPresentationStyle = .fullScreen
+            self.present(tabBarController, animated: true, completion: nil)
+        }
+        
+        
+        
+        
+       /* let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
         // 홈 뷰 컨트롤러 생성
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
@@ -207,16 +274,22 @@ class AddPlantViewController: UIViewController {
         
         // 모달로 화면 표시
         tabBarController.modalPresentationStyle = .fullScreen
-        self.present(tabBarController, animated: true, completion: nil)
+        self.present(tabBarController, animated: true, completion: nil)*/
     }
     
     func gotoSearchView(){
         guard let gotoSearchVC = storyboard?.instantiateViewController(withIdentifier: "SearchViewController") as? SearchViewController else {
                 return
             }
+        gotoSearchVC.viewController = self
         gotoSearchVC.modalTransitionStyle = .crossDissolve
         gotoSearchVC.modalPresentationStyle = .fullScreen
             present(gotoSearchVC, animated: true, completion: nil)
+    }
+    
+    func setPlantInfo(_ item:[String]){
+        plant_Item = item
+        plantTextField1.text = item[2]
     }
 }
 

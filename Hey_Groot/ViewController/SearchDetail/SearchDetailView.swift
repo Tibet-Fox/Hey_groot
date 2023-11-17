@@ -55,6 +55,21 @@ class SearchDetailView : UIView{
         return button
     }()
     
+    let plantRegister_Button:UIButton = {
+        let button = UIButton()
+        if let font = UIFont(name: "AppleSDGothicNeo-Bold", size: 15) as UIFont? {
+            let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font]
+            let attributedTitle = NSAttributedString(string: "내 식물 등록하기", attributes: attributes)
+            button.setAttributedTitle(attributedTitle, for: .normal)
+        } else {
+            print("폰트를 로드하지 못했습니다.")
+        }
+        button.backgroundColor = UIColor(red: 0.6, green: 0.808, blue: 0.506, alpha: 1)
+        button.layer.cornerRadius = 12
+        button.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        return button
+    }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -87,7 +102,7 @@ class SearchDetailView : UIView{
     }
     
     func layout(){
-        [imageView,backView].forEach{
+        [imageView,backView,plantRegister_Button].forEach{
             self.addSubview($0)
         }
         
@@ -129,6 +144,13 @@ class SearchDetailView : UIView{
             $0.leading.equalTo(self.backView.snp.leading)
             $0.trailing.equalTo(self.backView.snp.trailing)
             $0.bottom.equalTo(self.backView.snp.bottom)
+        }
+        
+        plantRegister_Button.snp.makeConstraints{
+            $0.width.equalTo(119)
+            $0.height.equalTo(30)
+            $0.centerX.equalTo(self.snp.centerX)
+            $0.bottom.equalTo(self.snp.bottom).inset(20)
         }
     }
     
