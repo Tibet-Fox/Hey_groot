@@ -9,13 +9,30 @@
 import Foundation
 import UIKit
 
+//struct YourDataModel: Codable {
+////    let partner: Partner
+//       let datas: [SensorData]
+//
+//    struct SensorData: Codable {
+//        let partner_id: Int
+//        let date: String
+//        let light: Double
+//        let humid: Double
+//        let temp: Double
+//        let soil: Int
+//    }
+//}
+
 class TemperatureViewController: UIViewController {
     
     // 레이블을 생성
     let plantDataLabel = UILabel()
+    // "센서값" 레이블 생성
+       let sensorLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // 배경색을 흰색으로 설정하고 투명도를 조절
         view.backgroundColor = UIColor.white.withAlphaComponent(1.0)
@@ -35,48 +52,97 @@ class TemperatureViewController: UIViewController {
         let combinedItems = [backButton, sensorItem]
         self.navigationItem.leftBarButtonItems = combinedItems
         
-        // 아두이노 식물 데이터 레이블에 표시
-        fetchArduinoPlantData()
+        
+      
+        // "센서값" 레이블 추가
+        view.addSubview(sensorLabel)
+        sensorLabel.numberOfLines = 0 // 여러 줄의 텍스트 허용
+        sensorLabel.lineBreakMode = .byWordWrapping // 단어 단위로 줄 바꿈
+        sensorLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            sensorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            sensorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            sensorLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8) // 예시로 너비를 화면 너비의 80%로 설정
+        ])
+
+        
+        fetchDataFromServer()
+        
     }
     
-    func fetchArduinoPlantData() {
+    // Function to parse JSON data and update UI
+       func updateUI(with jsonData: Data) {
+           do {
+               let decoder = JSONDecoder()
+               let jsonDataObject = try decoder.decode(YourDataModel.self, from: jsonData)
+
+               // Assuming YourDataModel is a struct or class representing your JSON structure
+               if let latestData = jsonDataObject.datas.last {
+                   DispatchQueue.main.async {
+                       // Update UI elements with the latest data
+                          let boldAttributes: [NSAttributedString.Key: Any] = [
+                              .font: UIFont.boldSystemFont(ofSize: 16) // 여기서 16은 굵은체 텍스트의 크기
+                          ]
+                          
+                          let attributedText = NSMutableAttributedString(string: "Temperature: ", attributes: boldAttributes)
+                          
+                          // Append the non-bold part of the text
+                          attributedText.append(NSAttributedString(string: "\(latestData.temp) °C"))
+                          
+                          self.sensorLabel.attributedText = attributedText
+                          self.view.addSubview(self.sensorLabel)
+                          self.sensorLabel.translatesAutoresizingMaskIntoConstraints = false
+                          
+                          // Add Auto Layout constraints to center the label in the view
+                          NSLayoutConstraint.activate([
+                            self.sensorLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                                    self.sensorLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 80)
+                          ])
+                   }
+               }
+           } catch {
+               print("Error decoding JSON: \(error)")
+           }
+       }
+    
+    
+    
+    func fetchDataFromServer() {
+        
+        let accessToken = Auth.token.accessToken
+        
+
+        // 연결할 URL
         if let url = URL(string: "http://3.20.48.164:8000/plant/data/") {
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if let error = error {
-                    print("네트워크 요청 오류: \(error)")
-                    return
-                }
-                
-                if let data = data {
-                    do {
-                        // JSON 데이터를 파싱
-                        let jsonData = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let jsonDictionary = jsonData as? [String: Any] {
-                            // 필요한 데이터 추출
-                            if let plantData = jsonDictionary["plantData"] as? String {
-                                // 레이블에 데이터 표시
-                                DispatchQueue.main.async {
-                                    self.updatePlantDataLabel(plantData)
-                                }
-                            }
-                        }
-                    } catch {
-                        print("데이터 파싱 오류: \(error)")
-                    }
-                }
-            }
-            task.resume()
-        } else {
-            print("잘못된 URL입니다.")
-        }
-    }
+            
+            // URLSession 객체 생성
+            let session = URLSession.shared
+            
+            // URL 요청을 위한 URLRequest 생성
+                   var request = URLRequest(url: url)
+                   
+                   // 액세스 토큰을 사용하여 Authorization 헤더 추가
+                   request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
+                   // URLSession 데이터 작업 생성
+                   let task = session.dataTask(with: request) { (data, response, error) in
+                       // 에러 확인
+                       if let error = error {
+                           print("에러: \(error)")
+                           return
+                       }
+
+                       if let data = data {
+                                           // Call the updateUI function with the received JSON data
+                                           self.updateUI(with: data)
+                                       }
+                                   }
+
+                                   task.resume()
+                               }
+                           }
+                           
     
-    // 레이블에 데이터를 업데이트하는 함수
-    func updatePlantDataLabel(_ data: String) {
-        plantDataLabel.text = data
-        plantDataLabel.frame = CGRect(x: 20, y: 100, width: 300, height: 30)
-        view.addSubview(plantDataLabel)
-    }
     
     @objc func backButtonTapped() {
         // 화살표 버튼이 탭되었을 때 수행할 동작을 여기에 추가

@@ -65,12 +65,21 @@
 		52A3CB632AECE84A00595B73 /* HumidityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A3CB622AECE84A00595B73 /* HumidityViewController.swift */; };
 		52A3CB652AECE86200595B73 /* LuminosityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A3CB642AECE86200595B73 /* LuminosityViewController.swift */; };
 		52A3CB672AECE87300595B73 /* MonitoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A3CB662AECE87300595B73 /* MonitoringViewController.swift */; };
-		52B5B9FB2AE7EB8800401750 /* SetInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B5B9FA2AE7EB8800401750 /* SetInfoViewController.swift */; };
-		52B5B9FD2AE7EBAC00401750 /* BookmarkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B5B9FC2AE7EBAC00401750 /* BookmarkListViewController.swift */; };
-		52B5B9FF2AE7EBBE00401750 /* SetCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B5B9FE2AE7EBBE00401750 /* SetCharacterViewController.swift */; };
-		52B5BA012AE7EBC500401750 /* AppVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B5BA002AE7EBC500401750 /* AppVersionViewController.swift */; };
 		52CCAAFA2AEB1AD00026D3D7 /* TemperatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CCAAF92AEB1AD00026D3D7 /* TemperatureViewController.swift */; };
-		52CCAAFC2AEB9A4E0026D3D7 /* sensor.png in Resources */ = {isa = PBXBuildFile; fileRef = 52CCAAFB2AEB9A4E0026D3D7 /* sensor.png */; };
+		81A068E52B01F25400FDA1EB /* SetCharacterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A068E42B01F25400FDA1EB /* SetCharacterController.swift */; };
+		81A068E72B01F27900FDA1EB /* BookmarkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A068E62B01F27900FDA1EB /* BookmarkListViewController.swift */; };
+		81A068E92B01F28F00FDA1EB /* SetInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A068E82B01F28F00FDA1EB /* SetInfoViewController.swift */; };
+		81A068EB2B01F2B000FDA1EB /* AppVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A068EA2B01F2B000FDA1EB /* AppVersionViewController.swift */; };
+		81A068F22B03063100FDA1EB /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 81A068F12B03063100FDA1EB /* RxGesture */; };
+		9A0ED2092B066F6E00D7D690 /* sensor.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0ED2082B066F6E00D7D690 /* sensor.png */; };
+		9A0ED20B2B07155B00D7D690 /* sensordatamodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0ED20A2B07155B00D7D690 /* sensordatamodel.swift */; };
+		B93A52BD2B06557F00836C06 /* MyRegisterPlant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93A52BC2B06557F00836C06 /* MyRegisterPlant.swift */; };
+		B93A52BF2B0657C200836C06 /* SetCharacterTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93A52BE2B0657C200836C06 /* SetCharacterTableCell.swift */; };
+		B93A52C12B0657FD00836C06 /* SetCharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93A52C02B0657FD00836C06 /* SetCharacterViewModel.swift */; };
+		B9ADB48F2B04EFA7009A8D23 /* SetCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ADB48E2B04EFA7009A8D23 /* SetCharacterView.swift */; };
+		B9E9F41C2B06235600597C50 /* CharacterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E9F41B2B06235600597C50 /* CharacterInfo.swift */; };
+		B9E9F4202B0624F400597C50 /* AddCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E9F41F2B0624F400597C50 /* AddCharacterView.swift */; };
+		B9E9F4222B06289D00597C50 /* AddCharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E9F4212B06289D00597C50 /* AddCharacterViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,12 +134,20 @@
 		52A3CB622AECE84A00595B73 /* HumidityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidityViewController.swift; sourceTree = "<group>"; };
 		52A3CB642AECE86200595B73 /* LuminosityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuminosityViewController.swift; sourceTree = "<group>"; };
 		52A3CB662AECE87300595B73 /* MonitoringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringViewController.swift; sourceTree = "<group>"; };
-		52B5B9FA2AE7EB8800401750 /* SetInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetInfoViewController.swift; path = ../../../../../YuProject/Hey_groot/Hey_Groot/ViewController/SetInfoViewController.swift; sourceTree = "<group>"; };
-		52B5B9FC2AE7EBAC00401750 /* BookmarkListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookmarkListViewController.swift; path = ../../../../../YuProject/Hey_groot/Hey_Groot/ViewController/BookmarkListViewController.swift; sourceTree = "<group>"; };
-		52B5B9FE2AE7EBBE00401750 /* SetCharacterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetCharacterViewController.swift; path = ../../../../../YuProject/Hey_groot/Hey_Groot/ViewController/SetCharacterViewController.swift; sourceTree = "<group>"; };
-		52B5BA002AE7EBC500401750 /* AppVersionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppVersionViewController.swift; path = ../../../../../YuProject/Hey_groot/Hey_Groot/ViewController/AppVersionViewController.swift; sourceTree = "<group>"; };
 		52CCAAF92AEB1AD00026D3D7 /* TemperatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureViewController.swift; sourceTree = "<group>"; };
-		52CCAAFB2AEB9A4E0026D3D7 /* sensor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sensor.png; path = ../../../../../Downloads/sensor.png; sourceTree = "<group>"; };
+		81A068E42B01F25400FDA1EB /* SetCharacterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCharacterController.swift; sourceTree = "<group>"; };
+		81A068E62B01F27900FDA1EB /* BookmarkListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListViewController.swift; sourceTree = "<group>"; };
+		81A068E82B01F28F00FDA1EB /* SetInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetInfoViewController.swift; sourceTree = "<group>"; };
+		81A068EA2B01F2B000FDA1EB /* AppVersionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionViewController.swift; sourceTree = "<group>"; };
+		9A0ED2082B066F6E00D7D690 /* sensor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sensor.png; path = ../../../../sensor.png; sourceTree = "<group>"; };
+		9A0ED20A2B07155B00D7D690 /* sensordatamodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sensordatamodel.swift; sourceTree = "<group>"; };
+		B93A52BC2B06557F00836C06 /* MyRegisterPlant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRegisterPlant.swift; sourceTree = "<group>"; };
+		B93A52BE2B0657C200836C06 /* SetCharacterTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCharacterTableCell.swift; sourceTree = "<group>"; };
+		B93A52C02B0657FD00836C06 /* SetCharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCharacterViewModel.swift; sourceTree = "<group>"; };
+		B9ADB48E2B04EFA7009A8D23 /* SetCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCharacterView.swift; sourceTree = "<group>"; };
+		B9E9F41B2B06235600597C50 /* CharacterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterInfo.swift; sourceTree = "<group>"; };
+		B9E9F41F2B0624F400597C50 /* AddCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCharacterView.swift; sourceTree = "<group>"; };
+		B9E9F4212B06289D00597C50 /* AddCharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCharacterViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +157,7 @@
 			files = (
 				41A9D3092ACD453200216ACC /* RxSwift in Frameworks */,
 				41A9D3272ACE770B00216ACC /* Moya in Frameworks */,
+				81A068F22B03063100FDA1EB /* RxGesture in Frameworks */,
 				41A9D3072ACD453200216ACC /* RxRelay in Frameworks */,
 				41A9D2E42ABEC9CD00216ACC /* SnapKit in Frameworks */,
 				41A9D32A2ACE771500216ACC /* Alamofire in Frameworks */,
@@ -200,8 +218,7 @@
 				41FC4E4B2AA4ACBA000A018E /* TabBarViewController.swift */,
 				41FC4E4D2AA4AD70000A018E /* HomeViewController.swift */,
 				41862C1D2AA7AB5F00F98438 /* AddPlantViewController.swift */,
-				4181B6B52AACA2FF00120FB5 /* AddCharacterViewController.swift */,
-				4181B6BC2AACA3F800120FB5 /* CharacterCollectionViewCell.swift */,
+				B9E9F41E2B0624E300597C50 /* AddCharacter */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -261,10 +278,10 @@
 		41A9D30F2ACD46C600216ACC /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				52B5BA002AE7EBC500401750 /* AppVersionViewController.swift */,
-				52B5B9FE2AE7EBBE00401750 /* SetCharacterViewController.swift */,
-				52B5B9FC2AE7EBAC00401750 /* BookmarkListViewController.swift */,
-				52B5B9FA2AE7EB8800401750 /* SetInfoViewController.swift */,
+				B9ADB48D2B04EF86009A8D23 /* SetCharacter */,
+				81A068EA2B01F2B000FDA1EB /* AppVersionViewController.swift */,
+				81A068E62B01F27900FDA1EB /* BookmarkListViewController.swift */,
+				81A068E82B01F28F00FDA1EB /* SetInfoViewController.swift */,
 				41FC4E512AA4AD8D000A018E /* MyPageViewController.swift */,
 				41A9D3102ACD46DA00216ACC /* MyPageView.swift */,
 				41A9D3122ACD46E200216ACC /* MyPageTableViewCell.swift */,
@@ -276,7 +293,7 @@
 		41A9D3162ACE57BE00216ACC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				52CCAAFB2AEB9A4E0026D3D7 /* sensor.png */,
+				9A0ED2082B066F6E00D7D690 /* sensor.png */,
 				41A9D3192ACE58D600216ACC /* bookmark.png */,
 				41A9D3172ACE58CE00216ACC /* bookmark_on.png */,
 			);
@@ -304,6 +321,8 @@
 				41FC4E412A9B16AE000A018E /* WeatherData.swift */,
 				41A9D31E2ACE5BCC00216ACC /* Qutile.swift */,
 				41A9D3202ACE5C2A00216ACC /* ResponseModel.swift */,
+				B9E9F41B2B06235600597C50 /* CharacterInfo.swift */,
+				B93A52BC2B06557F00836C06 /* MyRegisterPlant.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -313,11 +332,34 @@
 			children = (
 				52855E742AEA86E900AE4A69 /* SensorViewController.swift */,
 				52CCAAF92AEB1AD00026D3D7 /* TemperatureViewController.swift */,
+				9A0ED20A2B07155B00D7D690 /* sensordatamodel.swift */,
 				52A3CB622AECE84A00595B73 /* HumidityViewController.swift */,
 				52A3CB642AECE86200595B73 /* LuminosityViewController.swift */,
 				52A3CB662AECE87300595B73 /* MonitoringViewController.swift */,
 			);
 			path = Sensor;
+			sourceTree = "<group>";
+		};
+		B9ADB48D2B04EF86009A8D23 /* SetCharacter */ = {
+			isa = PBXGroup;
+			children = (
+				81A068E42B01F25400FDA1EB /* SetCharacterController.swift */,
+				B9ADB48E2B04EFA7009A8D23 /* SetCharacterView.swift */,
+				B93A52BE2B0657C200836C06 /* SetCharacterTableCell.swift */,
+				B93A52C02B0657FD00836C06 /* SetCharacterViewModel.swift */,
+			);
+			path = SetCharacter;
+			sourceTree = "<group>";
+		};
+		B9E9F41E2B0624E300597C50 /* AddCharacter */ = {
+			isa = PBXGroup;
+			children = (
+				4181B6B52AACA2FF00120FB5 /* AddCharacterViewController.swift */,
+				B9E9F41F2B0624F400597C50 /* AddCharacterView.swift */,
+				4181B6BC2AACA3F800120FB5 /* CharacterCollectionViewCell.swift */,
+				B9E9F4212B06289D00597C50 /* AddCharacterViewModel.swift */,
+			);
+			path = AddCharacter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,6 +388,7 @@
 				41A9D30D2ACD456300216ACC /* Kingfisher */,
 				41A9D3262ACE770B00216ACC /* Moya */,
 				41A9D3292ACE771500216ACC /* Alamofire */,
+				81A068F12B03063100FDA1EB /* RxGesture */,
 			);
 			productName = Hey_Groot;
 			productReference = 413930AA2A8CF3FF003EAE29 /* Hey_Groot.app */;
@@ -382,6 +425,7 @@
 				41A9D30C2ACD456300216ACC /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				41A9D3252ACE770B00216ACC /* XCRemoteSwiftPackageReference "Moya" */,
 				41A9D3282ACE771500216ACC /* XCRemoteSwiftPackageReference "Alamofire" */,
+				81A068F02B03063100FDA1EB /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			productRefGroup = 413930AB2A8CF3FF003EAE29 /* Products */;
 			projectDirPath = "";
@@ -404,7 +448,7 @@
 				41A9D3182ACE58CE00216ACC /* bookmark_on.png in Resources */,
 				41A9D31A2ACE58D600216ACC /* bookmark.png in Resources */,
 				41FC4E4A2AA04932000A018E /* Main.storyboard in Resources */,
-				52CCAAFC2AEB9A4E0026D3D7 /* sensor.png in Resources */,
+				9A0ED2092B066F6E00D7D690 /* sensor.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,17 +464,18 @@
 				4181B6B62AACA2FF00120FB5 /* AddCharacterViewController.swift in Sources */,
 				52A3CB652AECE86200595B73 /* LuminosityViewController.swift in Sources */,
 				52CCAAFA2AEB1AD00026D3D7 /* TemperatureViewController.swift in Sources */,
+				B93A52C12B0657FD00836C06 /* SetCharacterViewModel.swift in Sources */,
+				B9ADB48F2B04EFA7009A8D23 /* SetCharacterView.swift in Sources */,
 				41A9D31F2ACE5BCC00216ACC /* Qutile.swift in Sources */,
 				41FC4E3A2A9B1648000A018E /* PostNickName.swift in Sources */,
 				41FC4E522AA4AD8D000A018E /* MyPageViewController.swift in Sources */,
-				52B5B9FB2AE7EB8800401750 /* SetInfoViewController.swift in Sources */,
 				41FC4E422A9B16AE000A018E /* WeatherData.swift in Sources */,
-				52B5B9FF2AE7EBBE00401750 /* SetCharacterViewController.swift in Sources */,
-				52B5B9FD2AE7EBAC00401750 /* BookmarkListViewController.swift in Sources */,
 				41EF6B922A92421D001460F1 /* LoginViewController.swift in Sources */,
 				41FC4E502AA4AD83000A018E /* SearchViewController.swift in Sources */,
 				4181B6C42AACA73A00120FB5 /* GlobalMainCharacter.swift in Sources */,
 				41A9D3112ACD46DA00216ACC /* MyPageView.swift in Sources */,
+				B9E9F4202B0624F400597C50 /* AddCharacterView.swift in Sources */,
+				B9E9F41C2B06235600597C50 /* CharacterInfo.swift in Sources */,
 				52A3CB632AECE84A00595B73 /* HumidityViewController.swift in Sources */,
 				4181B6BD2AACA3F800120FB5 /* CharacterCollectionViewCell.swift in Sources */,
 				41A9D3152ACD46EA00216ACC /* MyPageViewModel.swift in Sources */,
@@ -438,8 +483,8 @@
 				41A9D2F42ACD400F00216ACC /* SearchDetailViewModel.swift in Sources */,
 				52855E752AEA86E900AE4A69 /* SensorViewController.swift in Sources */,
 				413930AE2A8CF3FF003EAE29 /* AppDelegate.swift in Sources */,
-				52B5BA012AE7EBC500401750 /* AppVersionViewController.swift in Sources */,
 				41FC4E362A924D31000A018E /* PostLogin.swift in Sources */,
+				81A068E72B01F27900FDA1EB /* BookmarkListViewController.swift in Sources */,
 				41862C1E2AA7AB5F00F98438 /* AddPlantViewController.swift in Sources */,
 				41A9D3212ACE5C2A00216ACC /* ResponseModel.swift in Sources */,
 				41A9D2EB2ACD3F3800216ACC /* SarchTableViewCell.swift in Sources */,
@@ -448,19 +493,26 @@
 				41A9D2F22ACD400600216ACC /* SearchDetailView.swift in Sources */,
 				413930B02A8CF3FF003EAE29 /* SceneDelegate.swift in Sources */,
 				41A9D3132ACD46E200216ACC /* MyPageTableViewCell.swift in Sources */,
+				81A068EB2B01F2B000FDA1EB /* AppVersionViewController.swift in Sources */,
+				B9E9F4222B06289D00597C50 /* AddCharacterViewModel.swift in Sources */,
 				41FC4E2E2A924AFF000A018E /* TargetType.swift in Sources */,
 				41FC4E462A9B9F70000A018E /* RegisterViewController.swift in Sources */,
 				41FC4E402A9B169F000A018E /* WeatherModel.swift in Sources */,
+				B93A52BD2B06557F00836C06 /* MyRegisterPlant.swift in Sources */,
 				41A9D2E72ACD3F1600216ACC /* SearchView.swift in Sources */,
 				41FC4E4E2AA4AD70000A018E /* HomeViewController.swift in Sources */,
+				81A068E52B01F25400FDA1EB /* SetCharacterController.swift in Sources */,
 				41FC4E3C2A9B1656000A018E /* SpeechReturn.swift in Sources */,
 				41A9D2E92ACD3F2600216ACC /* SearchViewModel.swift in Sources */,
 				4181B6C62AAD9A4600120FB5 /* GlobalSpeechCharacter.swift in Sources */,
 				41A9D2F62ACD401600216ACC /* SearchDetailTableViewCell.swift in Sources */,
 				41FC4E342A924D18000A018E /* Auth.swift in Sources */,
+				9A0ED20B2B07155B00D7D690 /* sensordatamodel.swift in Sources */,
 				41FC4E4C2AA4ACBA000A018E /* TabBarViewController.swift in Sources */,
 				4181B6C82AADA61300120FB5 /* GlobalCharacter.swift in Sources */,
+				81A068E92B01F28F00FDA1EB /* SetInfoViewController.swift in Sources */,
 				41FC4E382A924D60000A018E /* PostNewUser.swift in Sources */,
+				B93A52BF2B0657C200836C06 /* SetCharacterTableCell.swift in Sources */,
 				52A3CB672AECE87300595B73 /* MonitoringViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,7 +655,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8ZADC7HJ86;
+				DEVELOPMENT_TEAM = 96JHLL52BF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hey_Groot/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "날씨 정보 접근 권한 허용";
@@ -619,7 +671,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gang.Heygroot;
+				PRODUCT_BUNDLE_IDENTIFIER = com.soomin.Heygroot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -634,7 +686,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8ZADC7HJ86;
+				DEVELOPMENT_TEAM = 96JHLL52BF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hey_Groot/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "날씨 정보 접근 권한 허용";
@@ -650,7 +702,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gang.Heygroot;
+				PRODUCT_BUNDLE_IDENTIFIER = com.soomin.Heygroot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -730,6 +782,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		81A068F02B03063100FDA1EB /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -777,6 +837,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 41A9D3282ACE771500216ACC /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		81A068F12B03063100FDA1EB /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81A068F02B03063100FDA1EB /* XCRemoteSwiftPackageReference "RxGesture" */;
+			productName = RxGesture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

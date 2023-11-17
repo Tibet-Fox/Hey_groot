@@ -31,6 +31,16 @@ class SensorViewController: UIViewController{
         todayLabel.textAlignment = .center // 가운데 정렬
         todayLabel.textColor = .black // 텍스트 색상 설정
         
+        // 현재 날짜를 가져오기
+        let currentDate = Date()
+
+        // 날짜를 문자열로 포맷팅하기 위한 DateFormatter 설정
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd(EEE)" // 날짜 형식 지정
+
+        // 현재 날짜를 포맷에 맞게 문자열로 변환하여 레이블에 설정
+        todayLabel.text = "Today is \(dateFormatter.string(from: currentDate))"
+        
         
         // "Today is" 레이블의 Auto Layout 설정
         view.addSubview(todayLabel)
@@ -54,36 +64,42 @@ class SensorViewController: UIViewController{
         //            stackView.addArrangedSubview(dateLabel)
         
         //버튼 배열
-        var buttons: [UIButton] = []
+//        var buttons: [UIButton] = []
         
-        for _ in 1...2 {
+        for column in 0..<2 {
             let horizontalStackView = UIStackView()
             horizontalStackView.axis = .horizontal // 수평으로 배치
             horizontalStackView.distribution = .fillEqually
             horizontalStackView.spacing = 30
-            
-            
-            for _ in 1...2 {
+
+            for row in 0..<2 {
                 let button = UIButton(type: .system)
+                // ... (이미지 및 색상 설정)
+
+                // 버튼에 개별적인 타이틀 및 시스템 이미지 설정
+                let tag = column * 2 + row
+                if tag == 0 {
+                    button.setTitle("Temperature", for: .normal)
+                    button.setImage(UIImage(systemName: "thermometer")?.withTintColor(.white), for: .normal)
+                } else if tag == 1 {
+                    button.setTitle("Humidity", for: .normal)
+                    button.setImage(UIImage(systemName: "drop.fill")?.withTintColor(.white), for: .normal)
+                } else if tag == 2 {
+                    button.setTitle("Luminosity", for: .normal)
+                    button.setImage(UIImage(systemName: "lightbulb.fill")?.withTintColor(.white), for: .normal)
+                } else if tag == 3 {
+                    button.setTitle("Monitoring", for: .normal)
+                    button.setImage(UIImage(systemName: "eye")?.withTintColor(.white), for: .normal)
+                }
+
+                // 버튼에 고유한 tag 값을 부여
+                button.tag = tag
+                
                 //버튼색상
                 button.layer.backgroundColor = UIColor(red: 0.6, green: 0.808, blue: 0.506, alpha: 1).cgColor
                 button.setTitleColor(.white, for: .normal)
                 button.layer.cornerRadius = 8 // 버튼 둥글게 처리
                 button.titleLabel?.font = UIFont.systemFont(ofSize: 18) // 버튼 텍스트 폰트 크기
-                
-                // 버튼에 개별적인 타이틀 설정
-                if buttons.count == 0 {
-                    button.setTitle("Temperature", for: .normal)
-                } else if buttons.count == 1 {
-                    button.setTitle("Humidity", for: .normal)
-                } else if buttons.count == 2 {
-                    button.setTitle("Luminosity", for: .normal)
-                } else if buttons.count == 3 {
-                    button.setTitle("Monitoring", for: .normal)
-                }
-                
-                buttons.append(button) // 버튼 배열에 추가
-                
                 
                 // Auto Layout을 사용하여 버튼 크기 및 위치 조정
                 button.translatesAutoresizingMaskIntoConstraints = false

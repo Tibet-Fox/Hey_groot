@@ -14,3 +14,8 @@ struct Plant_info:Codable{
     
 }
 
+class BookMarkPlant_Info:Codable{
+    var id:Int?
+    var plantinfo:Plant_info?
+}
+

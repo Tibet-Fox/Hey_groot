@@ -4,20 +4,16 @@ import Foundation
 import UIKit
 import SnapKit
 import RxSwift
-class MyPageView:UIView{
+import RxCocoa
+class SetCharacterView:UIView{
     
-    let bookMark: UIButton = {
-            let button = UIButton()
-            // 필요한 설정 추가
-            return button
-        }()
     let disposeBag = DisposeBag()
-    
     let tableView:UITableView = {
-        let tableview = UITableView()
-        tableview.separatorStyle = .none
-        return tableview
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        return tableView
     }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,13 +26,12 @@ class MyPageView:UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(_ viewModel:MyPageViewModel){
-        viewModel.bookMarkItems
+    func bind(_ viewModel:SetCharacterViewModel){
+        viewModel.items
             .asObservable()
             .bind(to: tableView.rx.items){ tv, row, data in
-                guard let cell = tv.dequeueReusableCell(withIdentifier: "MyPageTableViewCell", for: IndexPath(row: row, section: 0)) as? MyPageTableViewCell else { return UITableViewCell() }
-                let item = viewModel.getoriginItems.value.first(where: {$0[0] == String(data.plantinfo?.id ?? 0)})
-                cell.setData(item ?? [String]())
+                guard let cell = tv.dequeueReusableCell(withIdentifier: "SetCharacterTableCell", for: IndexPath(row: row, section: 0)) as? SetCharacterTableCell else { return UITableViewCell() }
+                cell.setData(data)
                 return cell
             }.disposed(by: disposeBag)
     }
@@ -52,13 +47,9 @@ class MyPageView:UIView{
             $0.trailing.equalTo(self.snp.trailing)
             $0.bottom.equalTo(self.snp.bottom)
         }
-        
     }
     
     func attribute(){
-        tableView.register(MyPageTableViewCell.self, forCellReuseIdentifier: "MyPageTableViewCell")
+        tableView.register(SetCharacterTableCell.self, forCellReuseIdentifier: "SetCharacterTableCell")
     }
-    
-    
 }
-

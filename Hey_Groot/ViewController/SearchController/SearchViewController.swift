@@ -18,6 +18,8 @@ class SearchViewController: UIViewController{
     let viewModel = SearchViewModel()
     let searchView = SearchView()
     
+    var viewController:AddPlantViewController?
+    
     override func viewDidLoad() {
         view.backgroundColor = UIColor(red: 0.988, green: 0.98, blue: 0.945, alpha: 1)
         bind(viewModel)
@@ -39,9 +41,12 @@ class SearchViewController: UIViewController{
                 }else{
                     var arr = [[String]]()
                     viewModel.getoriginItems.value.forEach{
-                        if $0[2].contains((string.element ?? "") ?? ""){
-                            arr.append($0)
+                        if $0.count > 3{
+                            if $0[2].contains((string.element ?? "") ?? ""){
+                                arr.append($0)
+                            }
                         }
+                        
                         
                     }
                     viewModel.getItems.accept(arr)
@@ -54,26 +59,8 @@ class SearchViewController: UIViewController{
         searchView.tableView
             .rx
             .itemSelected
-            .subscribe { index in
-//                let viewController = SearchDetailViewController()
-//                print("Before pushViewController")
-//                self.navigationController?.pushViewController(viewController, animated: true)
-//                print("After pushViewController")
-
-                
-//                private func navigateToSetInfoViewController() {
-//                    let setInfoVC = SetInfoViewController() // SetInfoViewController의 인스턴스 생성
-//                    let navController = UINavigationController(rootViewController: setInfoVC) // 내비게이션 컨트롤러 생성
-//                    self.present(navController, animated: true, completion: nil) // 화면 전환
-//                }
-                
-                let viewController = SearchDetailViewController()
-                let navController = UINavigationController(rootViewController:  viewController) // 내비게이션 컨트롤러 생성
-                self.present(navController, animated: true, completion: nil) // 화면 전환
-                viewController.viewModel.getItems.accept(viewModel.getItems.value[index.row])
-                viewController.viewModel.titlegetItems.accept(viewModel.titlegetItems.value)
-             //   self.navigationController?.pushViewController(viewController, animated: true)
-            }.disposed(by: disposeBag)
+            .bind(to: self.rx.selectTeableView)
+            .disposed(by: disposeBag)
     }
     
     func layout(){
@@ -121,6 +108,32 @@ class SearchViewController: UIViewController{
         let path = Bundle.main.path(forResource: "plant_info", ofType: "csv")!
         parseCSVAt(url: URL(fileURLWithPath: path))
         searchView.tableView.reloadData()
+    }
+    
+    func dismissController(_ index:IndexPath){
+        self.dismiss(animated: true){
+            self.viewController?.setPlantInfo(self.viewModel.getItems.value[index.row])
+        }
+        
+    }
+}
+
+extension Reactive where Base:SearchViewController{
+    
+    var selectTeableView:Binder<ControlEvent<IndexPath>.Element>{
+        return Binder(base){ base, index in
+            
+                let viewController = SearchDetailViewController()
+            if base.viewController != nil{
+                viewController.viewController = base
+                viewController.index = index
+            }
+                let navController = UINavigationController(rootViewController:  viewController) // 내비게이션 컨트롤러 생성
+                base.present(navController, animated: true, completion: nil) // 화면 전환
+                viewController.viewModel.getItems.accept(base.viewModel.getItems.value[index.row])
+                viewController.viewModel.titlegetItems.accept(base.viewModel.titlegetItems.value)
+            
+        }
     }
     
 }
